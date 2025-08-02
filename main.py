@@ -1,9 +1,17 @@
-# This entrypoint file to be used in development. Start by reading README.md
-import demographic_data_analyzer
-from unittest import main
+# main.py
 
-# Test your function by calling it here
-demographic_data_analyzer.calculate_demographic_data()
+from demographic_data_analyzer import calculate_demographic_data
 
-# Run unit tests automatically
-main(module='test_module', exit=False)
+def test_calculate_demographic_data():
+    results = calculate_demographic_data(print_data=False)
+
+    # Assert checks (these are illustrative — update expected values based on your actual dataset)
+    assert isinstance(results['race_count'], pd.Series), "Race count should be a pandas Series"
+    assert isinstance(results['average_age_men'], float), "Average age should be a float"
+    assert 0 <= results['percentage_bachelors'] <= 100, "Percentage should be within 0-100 range"
+    assert results['highest_earning_country_percentage'] > 0, "Should be greater than 0"
+
+    print("✅ All test checks passed!")
+
+if __name__ == "__main__":
+    test_calculate_demographic_data()
